@@ -30,10 +30,11 @@ def imageCrop(img):
 
 def numberRecognition(img, templateDict, fieldSize, startShift):
     sudokuField = [[0 for _ in range(0, 9)] for _ in range(0, 9)]
-    impartNum = 0
+
+    posX, posY = startShift, startShift
     for line in range(0, 9):
         for number in range(0,9):
-            imgPart = img[startShift:startShift+fieldSize,startShift:startShift+fieldSize]
+            imgPart = img[posY:posY+fieldSize,posX:posX+fieldSize]
             treshold = 1.0
             loc = []
             end = False
@@ -50,13 +51,12 @@ def numberRecognition(img, templateDict, fieldSize, startShift):
             
                     treshold -= 0.01
 
-            fieldSize += fieldSize + 1
+            posX += fieldSize + 1
             if number == 2 or number == 5:
-                fieldSize += 1
-            impartNum += 1
-        fieldSize += fieldSize +1
+                posX += 1
+        posY += fieldSize +1
         if line == 2 or line == 5:
-            fieldSize += 1
-        fieldSize = 2
+            posY += 1
+        posX = 2
 
     return sudokuField
