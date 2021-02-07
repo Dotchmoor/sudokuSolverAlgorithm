@@ -1,5 +1,5 @@
 import win32api, win32gui, time, cv2, numpy, os, pyautogui
-import sudokuRecognition, interaction
+import sudokuRecognition, interaction, solverAlgorithm
 from PIL import ImageGrab
 
 #sudokuField = [[0 for _ in range(0, 9)] for _ in range(0, 9)]
@@ -40,12 +40,9 @@ sudokuField = sudokuRecognition.numberRecognition(img, numbers, 54, 2)
 print(sudokuField)
 print(f"time: {time.time()-loopTime}")
 
-del img, numbers, imgPath
+del img, numbers
 
 ##### solve #####
-while not pyautogui.locateOnScreen(os.path.join(imgPath, "images\\newGame.png")):
-    interaction.moveDown()
-    time.sleep(0.25)
+solverAlgorithm.algorithm(sudokuField)
 
 print(f"THE END, solving took {time.time()-loopTime}")
-
