@@ -26,19 +26,18 @@ class algorithm():
         boxC = 0
         for blockline in range(0, 7, 3):
             for block in range(0, 7, 3):
-                inBoxPossible = iBP
-                box = 0
+                inBoxPossible = {i:None for i in range(1, 10)}
                 for y in range(0+blockline, 3+blockline):
                     for x in range(0+block, 3+block):
                         if (x, y) in self.prePos:
+                            print(inBoxPossible, "|", self.gameGrid[y][x], "|", x, y)
                             del inBoxPossible[self.gameGrid[y][x]]
                             fieldData[f"box{boxC}"]["general"] = inBoxPossible
-                            fieldData[f"box{boxC}"]["fields"][box] = inBoxPossible
-                        else:
-                            fieldData[f"box{boxC}"]["fields"][box] = iBP
-                        box += 1
+                            for field, _ in fieldData[f"box{boxC}"]["fields"].items():
+                                fieldData[f"box{boxC}"]["fields"][field] = inBoxPossible
                 boxC += 1
 
+        #### work indivitual fields ####
 
 
         print(fieldData)
